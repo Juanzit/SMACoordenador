@@ -1,0 +1,1 @@
+export default [{nome: 'Esteira'},{nome: 'Bicicleta Ergométrica'}, {nome:'Elíptico'}, {nome:'Corda'}]
