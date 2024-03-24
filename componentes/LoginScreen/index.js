@@ -167,7 +167,7 @@ export default ({ navigation }) => {
                     enderecoCoordenador.setNumero(coordenadorData.endereco.numero)
                     coordenadorLogado.setAcademia(coordenadorData.academia)
                     console.log('coordenadorData', coordenadorData)
-                    //console.log("CHEGOU AQUI 4")
+                    console.log("CHEGOU AQUI 4")
 
                     const coordenadorString = JSON.stringify(coordenadorDoc.data())
                     AsyncStorage.setItem('coordenadorLocal', coordenadorString)
@@ -177,7 +177,7 @@ export default ({ navigation }) => {
             } catch (error) {
                 console.log(error);
             }  finally {
-                //saveValueFunction()
+                saveValueFunction()
             } 
         }
 

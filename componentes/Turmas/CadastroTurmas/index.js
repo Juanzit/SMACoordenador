@@ -40,8 +40,10 @@ export default ({ navigation }) => {
             setHorario('');
             setDia('');
             setVaga('');
+            Alert.alert("Turma cadastrada com sucesso!")
+            navigation.goBack()
         }).catch((erro) => {
-            console.log(`Não foi possível criar a turma. Já existe uma turma cadastrada com esse nome.`);
+           Alert.alert(`Não foi possível criar a turma. Já existe uma turma cadastrada com esse nome.`);
         });
     }
 
