@@ -9,7 +9,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native'; /
 import {Academia} from '../../classes/Academia'
 import { AppLoading } from 'expo';
 import {Endereco} from '../../classes/Endereco'
-import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint} from "firebase/firestore";
+import { collection,setDoc,doc, getDocs, getFirestore, where , query, addDoc, querySnapshot, QueryStartAtConstraint, getDoc} from "firebase/firestore";
 import {firebase, firebaseBD} from '../configuracoes/firebaseconfig/config'
 import NetInfo from "@react-native-community/netinfo"
 import ModalSemConexao from "../ModalSemConexao";
@@ -86,24 +86,31 @@ export default ({navigation}) => {
     const [complemento, setComplemento] = useState('')
 
 
-
-    const handleFinalizarCadastro = () => {
-
-        setDoc(doc(firebaseBD, "Academias", `${novaAcademia.getNome()}`), {
-            nome: novaAcademia.getNome(),
-            cnpj: novaAcademia.getCnpj(),
-            endereco: {
-                rua: enderecoAcademia.getRua(),
-                cidade: enderecoAcademia.getCidade(),
-                estado: enderecoAcademia.getEstado(),
-                numero: enderecoAcademia.getNumero(),
-                complemento: enderecoAcademia.getComplemento(),
-            },
+    const handleFinalizarCadastro = async () => {
+        const academiaRef = doc(firebaseBD, "Academias", novaAcademia.getNome())
+        const academiaSnapshot = await getDoc(academiaRef)
+    
+        if (academiaSnapshot.exists()) {
+            Alert.alert(`Erro no cadastro!`,`Não foi possível criar o documento. Já existe uma academia cadastrada com esse nome.`)
+        } else {
+            setDoc(doc(firebaseBD, "Academias", `${novaAcademia.getNome()}`), {
+                nome: novaAcademia.getNome(),
+                cnpj: novaAcademia.getCnpj(),
+                endereco: {
+                    rua: enderecoAcademia.getRua(),
+                    cidade: enderecoAcademia.getCidade(),
+                    estado: enderecoAcademia.getEstado(),
+                    numero: enderecoAcademia.getNumero(),
+                    complemento: enderecoAcademia.getComplemento(),
+                },
+            }).then(() => {
+                navigation.navigate('Cadastro Coordenador')
             }).catch((erro) => {
-                console.log(`Não foi possível criar o documento. Já existe uma academia cadastrada com esse nome.`)
+                console.log(`Não foi possível criar o documento. Ocorreu um erro: ${erro}`)
             });
-        navigation.navigate('Cadastro Coordenador')
+        }
     }
+    
           //Validação do estado
         const estadosBrasileiros = [
             'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',

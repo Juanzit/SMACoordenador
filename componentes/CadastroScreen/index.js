@@ -149,87 +149,94 @@ export default ({navigation}) => {
       console.log(value)
       }
 
-      const handleFinalizarCadastro = () => {
-        const data = new Date()
-        const dia = data.getDate()
-        const mes = data.getMonth() + 1
-        const ano = data.getFullYear()
-        
-  
-        firebase.auth().createUserWithEmailAndPassword(novoCoordenador.getEmail(), novoCoordenador.getSenha())
-        .then((userCredential) => {
-          console.log(userCredential);
-      
-          setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getEmail()}`), {
-            nome: novoCoordenador.getNome(),
-            cpf: novoCoordenador.getCpf(),
-            dataNascimento:  novoCoordenador.getDataNascimento(),
-            telefone: novoCoordenador.getTelefone(),
-            profissao: novoCoordenador.getProfissao(),
-            sexo: novoCoordenador.getSexo(),
-            academia : novoCoordenador.getAcademia(),
-            endereco: {
-              rua: enderecoCoordenador.getRua(),
-              cidade: enderecoCoordenador.getCidade(),
-              estado: enderecoCoordenador.getEstado(),
-              numero: enderecoCoordenador.getNumero(),
-              complemento: enderecoCoordenador.getComplemento(),
-            },
-            email: novoCoordenador.getEmail(),
-            senha: novoCoordenador.getSenha(),
-          }).then(() => {
-            Alert.alert("Novo usuário criado com sucesso!");
-      
-            setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getEmail()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
-              data: `${dia}/${mes}/${ano}`,
-              nova: false,
-              remetente: 'Gustavo & cia',
-              texto: "É um prazer recebê-lo em nosso aplicativo. Desenvolvido por Gustavo Vaz Teixeira, João Bastista, Mateus Novaes, Sérgio Muinhos e Marcelo Patrício, em parceria com o Instituto Federal do Sudeste de Minas Gerais, o ShapeMeApp foi criado para proporcionar a você uma experiência interativa e personalizada durante seus treinos.",
-              tipo: "sistema",
-              titulo: "Bem-vindo ao ShapeMeApp!"
-            });
-      
-            navigation.navigate("Login");
-          }).catch(error => {
-            let errorMessage = '';
-            switch (error.code) {
-              case 'auth/email-already-in-use':
-                errorMessage = 'O email fornecido já está em uso por outra conta.';
-                break;
-              case 'auth/invalid-email':
-                errorMessage = 'O email fornecido é inválido.';
-                break;
-              case 'auth/weak-password':
-                errorMessage = 'A senha fornecida é muito fraca. Escolha uma senha mais forte.';
-                break;
-              default:
-                errorMessage = 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.';
-            }
-      
-            Alert.alert('Erro no cadastro', errorMessage);
-            console.log(error);
-          });
-        }).catch((error) => {
-          let errorMessage = '';
-          switch (error.code) {
-            case 'auth/email-already-in-use':
-              errorMessage = 'O email fornecido já está em uso por outra conta.';
-              break;
-            case 'auth/invalid-email':
-              errorMessage = 'O email fornecido é inválido.';
-              break;
-            case 'auth/weak-password':
-              errorMessage = 'A senha fornecida é muito fraca. Escolha uma senha mais forte.';
-              break;
-            default:
-              errorMessage = 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.';
-          }
+      const handleFinalizarCadastro = async () => {
+        const coordenadorRef = collection(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`);
+        const coordenadorSnapshot = await getDocs(coordenadorRef);
     
-          Alert.alert('Erro no cadastro', errorMessage);
-          console.log(error);
-        });
-      }
-
+        if (!coordenadorSnapshot.empty) {
+            Alert.alert("Erro no cadastro", "Não é permitido cadastrar mais de um coordenador.");
+            return;
+        }
+    
+        const data = new Date();
+        const dia = data.getDate();
+        const mes = data.getMonth() + 1;
+        const ano = data.getFullYear();
+    
+        firebase.auth().createUserWithEmailAndPassword(novoCoordenador.getEmail(), novoCoordenador.getSenha())
+            .then((userCredential) => {
+                console.log(userCredential);
+    
+                setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador`, `${novoCoordenador.getEmail()}`), {
+                    nome: novoCoordenador.getNome(),
+                    cpf: novoCoordenador.getCpf(),
+                    dataNascimento: novoCoordenador.getDataNascimento(),
+                    telefone: novoCoordenador.getTelefone(),
+                    profissao: novoCoordenador.getProfissao(),
+                    sexo: novoCoordenador.getSexo(),
+                    academia: novoCoordenador.getAcademia(),
+                    endereco: {
+                        rua: enderecoCoordenador.getRua(),
+                        cidade: enderecoCoordenador.getCidade(),
+                        estado: enderecoCoordenador.getEstado(),
+                        numero: enderecoCoordenador.getNumero(),
+                        complemento: enderecoCoordenador.getComplemento(),
+                    },
+                    email: novoCoordenador.getEmail(),
+                    senha: novoCoordenador.getSenha(),
+                }).then(() => {
+                    Alert.alert("Novo usuário criado com sucesso!");
+    
+                    setDoc(doc(firebaseBD, `Academias/${novoCoordenador.getAcademia()}/Coordenador/${novoCoordenador.getEmail()}`, "Notificações", `Notificação${ano}|${mes}|${dia}`), {
+                        data: `${dia}/${mes}/${ano}`,
+                        nova: false,
+                        remetente: 'Gustavo & cia',
+                        texto: "É um prazer recebê-lo em nosso aplicativo. Desenvolvido por Gustavo Vaz Teixeira, João Bastista, Mateus Novaes, Sérgio Muinhos e Marcelo Patrício, em parceria com o Instituto Federal do Sudeste de Minas Gerais, o ShapeMeApp foi criado para proporcionar a você uma experiência interativa e personalizada durante seus treinos.",
+                        tipo: "sistema",
+                        titulo: "Bem-vindo ao ShapeMeApp!"
+                    });
+    
+                    navigation.navigate("Login");
+                }).catch(error => {
+                    let errorMessage = '';
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage = 'O email fornecido já está em uso por outra conta.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'O email fornecido é inválido.';
+                            break;
+                        case 'auth/weak-password':
+                            errorMessage = 'A senha fornecida é muito fraca. Escolha uma senha mais forte.';
+                            break;
+                        default:
+                            errorMessage = 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.';
+                    }
+    
+                    Alert.alert('Erro no cadastro', errorMessage);
+                    console.log(error);
+                });
+            }).catch((error) => {
+                let errorMessage = '';
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'O email fornecido já está em uso por outra conta.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'O email fornecido é inválido.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'A senha fornecida é muito fraca. Escolha uma senha mais forte.';
+                        break;
+                    default:
+                        errorMessage = 'Ocorreu um erro ao cadastrar o usuário. Tente novamente.';
+                }
+    
+                Alert.alert('Erro no cadastro', errorMessage);
+                console.log(error);
+            });
+    }
+    
           //Validação do estado
       const estadosBrasileiros = [
         'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
