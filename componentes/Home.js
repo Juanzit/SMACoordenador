@@ -13,10 +13,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
-export default ({navigation}) => {
+export default ({route,navigation}) => {
 
     const [conexao, setConexao] = useState(true);
+    const {alunos} = route.params 
 
+    console.log(alunos)
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
         setConexao(state.type === 'wifi' || state.type === 'cellular')
@@ -148,7 +150,7 @@ export default ({navigation}) => {
                         <View style={style.areaBotoes}>
 
                             <View style={style.containerBotao}>
-                                <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino')}>
+                                <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Seleção Aluno Análise do Programa de Treino', {alunos: alunos})}>
                                     <View style={[style.iconeBotao]}>
                                         <MaterialCommunityIcons name="clipboard-text-search-outline" size={70} color="white" />
                                     </View>
