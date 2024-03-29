@@ -81,6 +81,9 @@ export default StyleSheet.create ({
     textoSmall12px: {
         fontSize: 12,
     },
+    textoSmall16px: {
+        fontSize: 16,
+    },
     /* Cores de fundo (botões, View, etc.) */
     corPrimaria: {
         backgroundColor: '#0066FF'

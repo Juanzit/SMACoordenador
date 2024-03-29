@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 export default ({navigation, route}) => {
     const { professor } = route.params;
 
-    console.log(professor)
+    console.log("Professor", professor)
     return (
             <SafeAreaView style={[estilo.corLightMenos1,{height: '100%', padding: 15}]}>
 
@@ -32,24 +32,23 @@ export default ({navigation, route}) => {
                 <View>
                 <TouchableOpacity
                         style={[estilo.botao, estilo.corPrimaria]}
+                        onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
                         >
-                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}
-                                    onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]} 
                             >TRANSFERIR DE TURMA</Text>
                     </TouchableOpacity>
                 <TouchableOpacity
                         style={[estilo.botao, estilo.corDisabled]}
+                        onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
                         >
                             <Text style={[estilo.tituloH619px, estilo.textoCorLight]}
-                                    onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
                             >INATIVAR PROFESSOR</Text>
                     </TouchableOpacity>
                 <TouchableOpacity
-                        style={[estilo.botao, estilo.corDanger]}
+                        style={[estilo.botao, estilo.corDanger]} 
+                        onPress={() => navigation.navigate('Deletar Professor', {professor: professor})}
                         >
-                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}
-                                    onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
-                            >DELETAR PROFESSOR</Text>
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>DELETAR PROFESSOR</Text>
                     </TouchableOpacity>
                 </View>
                 </View>
