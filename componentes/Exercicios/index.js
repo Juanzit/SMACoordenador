@@ -123,13 +123,7 @@ export default ({ navigation }) => {
         </View>
 
         <View >
-          {/* Botão para editar os exercicios */}
-          <TouchableOpacity
-            style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
-            onPress={() => navigation.navigate('Editar Exercicios')}
-          >
-            <Text style={[estilo.tituloH427px, estilo.textoCorLight]}>EDITAR</Text>
-          </TouchableOpacity>
+
         </View>
 
       </View>

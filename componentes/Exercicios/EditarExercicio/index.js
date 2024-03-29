@@ -128,13 +128,7 @@ export default ({ navigation, route }) => {
 
     const [imagem, setImagem] = useState(null)
 
-    const options = {
-        title: 'Selecione uma imagem',
-        storageOptions: {
-            skipBackup: true,
-            path: 'images',
-        },
-    };
+
     const [braco, setBraco] = useState('')
     const [postura, setPostura] = useState('')
     const [implemento, setImplemento] = useState('')
@@ -164,7 +158,6 @@ export default ({ navigation, route }) => {
     
         const exercicioRef = collection(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), tipoExercicio);
         
-        // Use addDoc para criar um documento com um ID aleatório
         await addDoc(exercicioRef, {
             nome: nome,
             tipo: tipo,
@@ -177,7 +170,7 @@ export default ({ navigation, route }) => {
             amplitude: amplitudeArray,
             quadril: quadrilArray,
             execucao: execucaoArray,
-            imagem: downloadURL, // Usando a URL da imagem após o upload
+            imagem: downloadURL, 
         });
     
         Alert.alert(
@@ -195,6 +188,7 @@ export default ({ navigation, route }) => {
 
         const alunosRef = collection(db, "Academias", coordenadorLogado.getAcademia(), "Alunos")
         const alunosSnapshot = await getDocs(alunosRef)
+        const imageBlob = await getBlobFromUri(imagem);
 
         alunosSnapshot.forEach(async (aluno) => {
 
@@ -208,18 +202,21 @@ export default ({ navigation, route }) => {
                 exerciciosSnapshot.forEach(async (exercicio) => {
                     const exercicioData = exercicio.data()
                 
-            
+                    console.log(exercicioData.Nome.exercicio)
                     if (exercicioData.Nome.exercicio.includes(nomeAnterior)) {
                         const novoNome = exercicioData.Nome.exercicio.replace(nomeAnterior, nomeAtualizado);
                         const exercicioDocRef = doc(exerciciosRef, exercicio.id);
                     
                         await updateDoc(exercicioDocRef, {
-                            Nome: novoNome
+                            Nome: {
+                                exercicio: novoNome,
+                                imagem: imageBlob
+                            }
                         })
                         .then(() => {
                             Alert.alert(
                                 "Nome atualizado com sucesso!",
-                                "O update cascate foi concluído com sucesso. Todas as fichas e diários tiveram o nome do exercício atualizado."
+                                "Todas as fichas e diários tiveram o nome do exercício atualizado."
                             );
                         })
                         .catch((erro) => {

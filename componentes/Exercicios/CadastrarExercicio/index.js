@@ -152,14 +152,14 @@ const Component = ({ navigation }) => {
         const imageBlob = await getBlobFromUri(imagem);
         const uploadTask = uploadBytesResumable(storeRef, imageBlob);
 
-        const execucaoArray = execucao.split(', ')
-        const bracoArray = braco.split(', ')
-        const posturaArray = postura.split(', ')
-        const implementoarray = implemento.split(', ')
-        const posicaoDosPesArray = posicaoDosPes.split(', ')
-        const pegadaArray = pegada.split(', ')
-        const amplitudeArray = amplitude.split(', ')
-        const quadrilArray = quadril.split(', ')
+        const execucaoArray = execucao ? execucao.split(', ') : [];
+        const bracoArray = braco ? braco.split(', ') : [];
+        const posturaArray = postura ? postura.split(', ') : [];
+        const implementoarray = implemento ? implemento.split(', ') : [];
+        const posicaoDosPesArray = posicaoDosPes ? posicaoDosPes.split(', ') : [];
+        const pegadaArray = pegada ? pegada.split(', ') : [];
+        const amplitudeArray = amplitude ? amplitude.split(', ') : [];
+        const quadrilArray = quadril ? quadril.split(', ') : [];
         // Corrigir a função uploadBytesResumable para aceitar apenas dois argumentos
         await uploadBytesResumable(storeRef, imageBlob);
         console.log(variacao)
@@ -167,22 +167,24 @@ const Component = ({ navigation }) => {
         const tipoExercicio = tipo == 'Alongamentos' ? "ExerciciosAlongamento" : tipo == 'Aeróbicos' ? "ExerciciosAerobicos" : "ExerciciosForça"
         const downloadURL = await getDownloadURL(storeRef);
 
-
-        setDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), tipoExercicio, `${novoExercicio.getNome()}`), {
-            nome: nome,
-            tipo: tipo,
-            descricao: descricao,
-            braco: bracoArray,
-            postura: posturaArray,
-            implemento: implementoarray,
-            posicaoDosPes: posicaoDosPesArray,
-            pegada: pegadaArray,
-            amplitude: amplitudeArray,
-            quadril: quadrilArray,
-            execucao: execucaoArray,
-            exercicio: nome,
-            imagem: downloadURL, // Use o link de download da imagem
-        }).catch((erro) => {
+        const dataToSave = {
+          exercicio: nome,
+          imagem: downloadURL // Use o link de download da imagem
+      };
+      
+      if (nome) dataToSave.nome = nome;
+      if (tipo) dataToSave.tipo = tipo;
+      if (descricao) dataToSave.descricao = descricao;
+      if (bracoArray.length > 0) dataToSave.braco = bracoArray;
+      if (posturaArray.length > 0) dataToSave.postura = posturaArray;
+      if (implementoarray.length > 0) dataToSave.implemento = implementoarray;
+      if (posicaoDosPesArray.length > 0) dataToSave.posicaoDosPes = posicaoDosPesArray;
+      if (pegadaArray.length > 0) dataToSave.pegada = pegadaArray;
+      if (amplitudeArray.length > 0) dataToSave.amplitude = amplitudeArray;
+      if (quadrilArray.length > 0) dataToSave.quadril = quadrilArray;
+      if (execucaoArray.length > 0) dataToSave.execucao = execucaoArray;
+      
+      setDoc(doc(firebaseBD, 'Academias', coordenadorLogado.getAcademia(), tipoExercicio, `${novoExercicio.getNome()}`), dataToSave).catch((erro) => {
             console.log(`Não foi possível criar o documento. Já existe um exercício cadastrado com esse nome.`)
         }).then(() => {
             Alert.alert("Exercício Cadastrado com sucesso!", "O exercício foi cadastrado com sucesso no Banco de Dados e já pode ser inserido nas Fichas de Exercícios.")
