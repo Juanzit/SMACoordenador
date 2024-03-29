@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Text, TouchableOpacity, Button, View, SafeAreaView, StyleSheet, Alert } from 'react-native'
+import { Text, TouchableOpacity, Button, View, SafeAreaView, StyleSheet, Alert, Image } from 'react-native'
 import estilo from "../../estilo"
 
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc,deleteDoc } from "firebase/firestore";
@@ -23,22 +23,21 @@ export default ({ navigation, route }) => {
             Alert.alert('Erro ao deletar professor, tente denovo')
         }
       }
-      const handleCarregarProfessor = async () => {
-      }
+
       
 
     return (
         <SafeAreaView style={[estilo.corLightMenos1, style.container]}>
                     
-                    <View style={style.containerBotao, style.botao,style.areaBotoes}>
-                        <AntDesign name="warning" size={150} color="black" />
+                    <View style={[style.containerBotao, style.botao,style.areaBotoes]}>
+                        <AntDesign name="warning" size={150} color="red" />
                     </View>
 
-            <Text style={[estilo.tituloH619px, estilo.centralizado]} > Atenção!! </Text>
-                
-                        <Text style={[estilo.textoSmall16px, style.Montserrat, {margin: 50}/*estilo.centralizado*/ ]}>
+            <Text style={[estilo.tituloH333px, estilo.centralizado, estilo.textoCorDanger]} > ATENÇÃO!! </Text>
+
+                        <Text style={[estilo.textoSmall16px, estilo.textoCorSecundaria, {margin: 50}/*estilo.centralizado*/ ]}>
                             Você está prestes a deletar 
-                            {'\n'}
+
                             Professor:{professor.nome}
                             {'\n'}
                             CPF:{professor.cpf}
@@ -48,8 +47,12 @@ export default ({ navigation, route }) => {
                             Telefone:          {professor.telefone}
                             {'\n'}
                             {'\n'}
-                            Não poderá mais fazer login novamente com esse usuário, certifique-se de que está fazendo a escolha correta.
                         </Text>
+                        <Text style={[estilo.textoCorDanger, estilo.tituloH619px]}>
+                        Não poderá mais fazer login novamente com esse usuário, certifique-se de que está fazendo a escolha correta.
+
+                        </Text>
+
                 <TouchableOpacity style={[estilo.botao, estilo.corPrimaria, { marginTop: 100 }]} onPress={() => deleteProfessor()}>
                     <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>
                         Confirmar
