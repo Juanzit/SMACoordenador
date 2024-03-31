@@ -11,20 +11,19 @@ import Spinner from "react-native-loading-spinner-overlay"
 export default ({ navigation, route }) => {
     const {professor} = route.params
     console.log('teste:',professor)
+    
     const deleteProfessor = async () => {
         const db = getFirestore()
         const academiaDocRef = doc(db, "Academias", professor.academia, "Professores", professor.email);
-        //const usuarioDocRef = doc(db, "Academias", "Teste","Coordenador", );
         try {
-            await deleteDoc(academiaDocRef,usuarioDocRef);
-          Alert.alert("Professor deletado com sucesso!", "A turma foi atualizada com sucesso.")
-          navigation.goBack()
+            
+            await updateDoc(academiaDocRef,{excluido: true});    
+            Alert.alert("Professor deletado com sucesso!", "A turma foi atualizada com sucesso.")
+            navigation.goBack()
         } catch (error) {
-            Alert.alert('Erro ao deletar professor, tente denovo')
+            Alert.alert('Erro ao deletar professor, tente denovo', error.message)
         }
       }
-
-      
 
     return (
         <SafeAreaView style={[estilo.corLightMenos1, style.container]}>
