@@ -154,7 +154,7 @@ export default ({navigation}) => {
         const coordenadorSnapshot = await getDocs(coordenadorRef);
     
         if (!coordenadorSnapshot.empty) {
-            Alert.alert("Erro no cadastro", "Não é permitido cadastrar mais de um coordenador.");
+            Alert.alert("Erro no cadastro", "Não é permitido cadastrar mais de um coordenador por academia, a academia selecionada já possui um coordenador.");
             return;
         }
     

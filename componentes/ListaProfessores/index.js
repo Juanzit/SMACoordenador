@@ -43,9 +43,9 @@ return (
                     <TouchableOpacity
                         key={professor.nome}
                         onPress={() => navigation.navigate('Perfil Professor', { professor: professor })}
-                        style={[estilo.botao, estilo.corPrimaria]}
+                        style={[estilo.botao, professor.excluido ? estilo.corDanger : estilo.corPrimaria]}
                         >
-                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{professor.nome}</Text>
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>{professor.nome} {professor.excluido? "- excluido" : null }</Text>
                     </TouchableOpacity>
                 ))}
             </View>
