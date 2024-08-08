@@ -66,6 +66,7 @@ import EditarAcademia from './componentes/Academia/EditarAcademia';
 import TransferirTurma from './componentes/ListaProfessores/PerfilProfessor/TransferirTurma.js';
 import ListaTurmas from './componentes/Turmas/ListaTurmas.js';
 import DeleteProfessor from './componentes/ListaProfessores/PerfilProfessor/DeleteProfessor.js';
+import FuncoesProfessor from './componentes/FuncoesProfessor';
 const Stack = createNativeStackNavigator();
 window.navigator.userAgent = 'ReactNative'
 Notification.setNotificationHandler({
@@ -135,6 +136,7 @@ export default function App() {
         <Stack.Screen name="Lista Turmas" component={ListaTurmas}/>
         <Stack.Screen name="Analise do Programa de Treino" component={TelaAnaliseDoProgramaDeTreino}/>
         <Stack.Screen name="Deletar Professor" component={DeleteProfessor}/>
+        <Stack.Screen name="Funções Professor" component={FuncoesProfessor} />
       </Stack.Navigator>
     </NavigationContainer> 
     );

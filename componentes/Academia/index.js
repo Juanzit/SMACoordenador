@@ -1,6 +1,7 @@
 import { Text, StyleSheet, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import estilo from '../estilo'
+import {ButtonStyled, TextStyled} from "../StyledComponents/Button.style.ts"
 import { useNavigation } from '@react-navigation/native'
 import { coordenadorLogado } from '../LoginScreen'
 import { Academia } from '../../classes/Academia'
@@ -64,17 +65,19 @@ export default ({ navigation }) => {
                         <View >
                             {/* Botão para editar os dados */}
                             <TouchableOpacity
-                                style={[estilo.botao, estilo.sombra, estilo.corPrimaria, {marginBottom: '10%'}]}
+                                style={[estilo.botao, estilo.sombra, estilo.corPrimaria]}
                                 onPress={() => navigation.navigate('Editar Academia', { academia: academia })}
                             >
                                 <Text style={[estilo.textoP16px, estilo.textoCorLight]}>EDITAR DADOS</Text>
                             </TouchableOpacity>
                         </View>
+                        <ButtonStyled style={[{marginBottom: '10%'}]} onPress={() => navigation.navigate('Lista Professores')} isActive={true}>
+                            <TextStyled isActive={true}>Lista De Professores</TextStyled>
+                        </ButtonStyled>
                     </SafeAreaView>
                 ) : (
                     <Text>Carregando...</Text>
                 )}
-
         </ScrollView>
 
     )
