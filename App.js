@@ -20,7 +20,7 @@ import IMC from './componentes/Testes/Tabelas/IMC';
 import PressaoArterial from './componentes/Testes/Tabelas/PressaoArterial';
 import FrequenciaCardiacaDeRepouso from './componentes/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
 import Testes3 from './componentes/Testes/TestesParte3.js';
-import Routes from './componentes/Routes/estilo';
+import Routes from './componentes/Routes/route';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import PerfilCoordenador from './componentes/PerfilCoordenador';
@@ -32,6 +32,7 @@ import SelecaoAlunoAnaliseProgramaDeTreino from './componentes/AnaliseDoPrograma
 import TelaAnaliseDoProgramaDeTreino from './componentes/TelaAnaliseDoProgramaDeTreino';
 import TelasDeEvolucao from './componentes/TelasDeEvolucao';
 import SelecaoDaEvolucao from './componentes/TelasDeEvolucao/GraficosEvolutivos/SelecaoDaEvolucao';
+import SolicitacoesCadastro from './componentes/SolicitacoesCadastro';
 import EvolucaoCorporal from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoCorporal';
 import EvolucaoDoExercicioSelecao from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoDoExercicioSelecao';
 import EvolucaoDoExercicio from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoDoExercicio';
@@ -113,6 +114,7 @@ export default function App() {
         <Stack.Screen name="Seleção da evolução" component={SelecaoDaEvolucao}/>
         <Stack.Screen name="Evolução dados antropométricos" component={EvolucaoCorporal}/>
         <Stack.Screen name="Seleção do exercício" component={EvolucaoDoExercicioSelecao}/>
+        <Stack.Screen name="Solicitação de Cadastro" component={SolicitacoesCadastro}/>
         <Stack.Screen name="Evolução do exercício" component={EvolucaoDoExercicio}/>
         <Stack.Screen name="Evolução dos testes" component={EvolucaoDosTestes}/>
         <Stack.Screen name="Evolução PSE" component={EvolucaoPse}/>

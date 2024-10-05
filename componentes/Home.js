@@ -90,6 +90,18 @@ export default ({route,navigation}) => {
                             </View>
                             
                         </View>
+                        <View style={style.areaBotoes}>
+                            <View style={style.containerBotao}  >
+                                <TouchableOpacity 
+                                    style={[conexao ? estilo.corPrimaria : estilo.corDisabled, style.botao]} 
+                                    onPress={() => navigation.navigate("Solicitação de Cadastro")} >
+                                <View style={[ style.iconeBotao]}>
+                                    <FontAwesome5 name="user-cog" size={120} color="white" />
+                                </View>
+                                <Text style={[estilo.textoSmall12px, estilo.textoCorLight, style.textoBotao]}>SOLICITACOES DE CADASTRO</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                     </View>
                 
             </ScrollView>
@@ -108,16 +120,16 @@ const style = StyleSheet.create({
     },
     areaLogo: {
         paddingTop: '8%',
-        height: '10%',
+        height: '7%',
     },
     areaFrase: {
-        top: 40,
+        top: 30,
         marginVertical: '4%',
         height: '5%',
     },
     area: {
         flex: 1,
-        marginTop: '20%'
+        marginTop: '10%'
     },
     areaBotoes: {
         height: '30%',
@@ -127,7 +139,7 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        paddingLeft: 10
+        paddingLeft: 20
     },
     areaNavigation: {
         height: '7%',
@@ -137,16 +149,14 @@ const style = StyleSheet.create({
         width: '80%'
     },
     containerBotao: {
-        width: '48%',
-        height: '90%',
-        paddingBottom: 15,
-        paddingTop: 8
+        width: '53%',
+        height: '95%',
       },
       botao: {
           alignItems: 'center',
           justifyContent: 'center',
-          width: '95%',
-          height: '110%',
+          width: '85%',
+          height: '100%',
           borderRadius: 15,
           padding: 5
       },
