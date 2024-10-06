@@ -12,18 +12,36 @@ export default ({ navigation, route }) => {
     const {professor} = route.params
     console.log('teste:',professor)
     
-    const deleteProfessor = async () => {
-        const db = getFirestore()
-        const academiaDocRef = doc(db, "Academias", professor.academia, "Professores", professor.email);
+    const acceptProfessor = async () => {
+        const db = getFirestore();
+        const professorDocRef = doc(db, "Academias", professor.academia, "Professores", professor.email);
+
         try {
-            
-            await updateDoc(academiaDocRef,{excluido: true});    
-            Alert.alert("Professor deletado com sucesso!", "A turma foi atualizada com sucesso.")
-            navigation.goBack()
+            // Obtenha os dados do documento do professor
+            const professorDocSnap = await getDoc(professorDocRef);
+
+            if (professorDocSnap.exists()) {
+                const professorData = professorDocSnap.data();
+
+                // Verifique se o status existe
+                if (!professorData.status) {
+                    // Se não existir, crie o campo 'status'
+                    await updateDoc(professorDocRef, { status: "Aceito" });
+                } else {
+                    // Se já existir, atualize o status
+                    await updateDoc(professorDocRef, { status: "Aceito" });
+                }
+                Alert.alert("Professor aceito com sucesso!", "O status foi atualizado para 'Aceito'.");
+            } else {
+                // Caso o documento do professor não exista
+                await setDoc(professorDocRef, { status: "Aceito" }, { merge: true });
+                Alert.alert("Professor aceito!", "O documento do professor foi criado com o status 'Aceito'.");
+            }
+            navigation.goBack();
         } catch (error) {
-            Alert.alert('Erro ao deletar professor, tente denovo', error.message)
+            Alert.alert('Erro ao aceitar o professor, tente novamente', error.message);
         }
-      }
+    };
 
     return (
         <SafeAreaView style={[estilo.corLightMenos1, style.container]}>
@@ -34,25 +52,23 @@ export default ({ navigation, route }) => {
 
             <Text style={[estilo.tituloH333px, estilo.centralizado, estilo.textoCorDanger]} > ATENÇÃO!! </Text>
 
-                        <Text style={[estilo.textoSmall16px, estilo.textoCorSecundaria, {margin: 50}/*estilo.centralizado*/ ]}>
-                            Você está prestes a deletar 
-
+                        <Text style={[estilo.textoSmall16px, estilo.textoCorSecundaria, {margin: 50}]}>
+                            Realmente deseja aceitar esse professor?
+                            {'\n'}
+                            {'\n'}
                             Professor:{professor.nome}
                             {'\n'}
                             CPF:{professor.cpf}
                             {'\n'}
-                            Data de Nascimento: {professor.diaNascimento}/{professor.mesNascimento}/{professor.anoNascimento}
-                            {'\n'}
-                            Telefone:          {professor.telefone}
+                            Telefone: {professor.telefone}
                             {'\n'}
                             {'\n'}
                         </Text>
-                        <Text style={[estilo.textoCorDanger, estilo.tituloH619px]}>
-                        Não poderá mais fazer login novamente com esse usuário, certifique-se de que está fazendo a escolha correta.
-
+                        <Text style={[estilo.textoCorDanger, estilo.tituloH619px, style.alerta]}>
+                            A partir disso o professor poderá ter acesso aos dados medicos dos alunos de sua academia
                         </Text>
 
-                <TouchableOpacity style={[estilo.botao, estilo.corPrimaria, { marginTop: 100 }]} onPress={() => deleteProfessor()}>
+                <TouchableOpacity style={[estilo.botao, estilo.corPrimaria, { marginTop: 100 }]} onPress={() => acceptProfessor()}>
                     <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>
                         Confirmar
                     </Text>
@@ -65,6 +81,9 @@ export default ({ navigation, route }) => {
 const style = StyleSheet.create({
     container: {
         height: '100%'
+    },
+    alerta: {
+        textAlign: 'center',
     },
     inputArea: {
         width: '95%'

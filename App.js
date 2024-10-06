@@ -68,6 +68,9 @@ import TransferirTurma from './componentes/ListaProfessores/PerfilProfessor/Tran
 import ListaTurmas from './componentes/Turmas/ListaTurmas.js';
 import DeleteProfessor from './componentes/ListaProfessores/PerfilProfessor/DeleteProfessor.js';
 import FuncoesProfessor from './componentes/FuncoesProfessor';
+import AceitarProfessor from './componentes/SolicitacoesCadastro/PerfilProfessor/AceitarProfessor';
+import PerfilProfessorSolicitacao from './componentes/SolicitacoesCadastro/PerfilProfessor/index';
+
 const Stack = createNativeStackNavigator();
 window.navigator.userAgent = 'ReactNative'
 Notification.setNotificationHandler({
@@ -86,6 +89,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Principal" component={Routes} options={{ headerShown: false }} />
+        <Stack.Screen name="Aceitar Professor" component={AceitarProfessor} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro Coordenador" component={CadastroScreen}/>
         <Stack.Screen name="Perfil Aluno" component={PerfilDoAluno}/>
         <Stack.Screen name="Turmas" component={Turmas}/>
@@ -104,6 +108,7 @@ export default function App() {
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Lista Professores" component={ListaProfessores}/>
         <Stack.Screen name="Perfil Professor" component={PerfilProfessor}/>
+        <Stack.Screen name="Perfil ProfessorSolicitacao" component={PerfilProfessorSolicitacao}/>
         <Stack.Screen name="Alunos" component={SelecaoAluno}/>
         <Stack.Screen name="Lista Alunos" component={ListaAlunos}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>

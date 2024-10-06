@@ -25,30 +25,12 @@ export default ({navigation, route}) => {
                     <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{professor.email}</Text>
                     <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>Profissão:</Text>
                     <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{professor.profissao}</Text>
-                    {/*
-                    <Text style={[estilo.textoP16px, estilo.textoCorSecundaria]}>Endereço:</Text>
-                    <Text style={[estilo.tituloH619px, estilo.textoCorSecundaria]}>{enderecoCoordenador.getRua()},{enderecoCoordenador.getNumero()}, {enderecoCoordenador.getCidade()}, {enderecoCoordenador.getEstado()}</Text>
-                    */}
+
                 <View>
                 <TouchableOpacity
-                        style={[estilo.botao, estilo.corPrimaria]}
-                        onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
-                        >
-                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]} 
-                            >TRANSFERIR DE TURMA</Text>
-                    </TouchableOpacity>
-                <TouchableOpacity
-                        style={[estilo.botao, estilo.corDisabled]}
-                        onPress={()=> navigation.navigate('Transferir Turma Professor', {professor})}
-                        >
-                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}
-                            >INATIVAR PROFESSOR</Text>
-                    </TouchableOpacity>
-                <TouchableOpacity
-                        style={[estilo.botao, estilo.corDanger]} 
-                        onPress={() => navigation.navigate('Deletar Professor', {professor: professor})}
-                        >
-                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>DELETAR PROFESSOR</Text>
+                        style={[estilo.botao, estilo.corPrimaria]} 
+                        onPress={() => navigation.navigate('Aceitar Professor', {professor: professor})}>
+                            <Text style={[estilo.tituloH619px, estilo.textoCorLight]}>ACEITAR PROFESSOR</Text>
                     </TouchableOpacity>
                 </View>
                 </View>
