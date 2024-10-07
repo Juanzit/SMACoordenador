@@ -47,6 +47,7 @@ export default ({ navigation }) => {
     }, []);
 
     return (
+        <SafeAreaView>
         <ScrollView style={[estilo.corLightMenos1]}>
 
                 <View style={styles.areaFrase}>
@@ -72,6 +73,7 @@ export default ({ navigation }) => {
 
                 </View>
             </ScrollView>
+            </SafeAreaView>
     )
 }
 
@@ -81,7 +83,6 @@ const styles = StyleSheet.create({
     },
     areaFrase: {
         marginVertical: '3%',
-        height: '20%',
     },
     areaBotoes: {
         height: '25%',

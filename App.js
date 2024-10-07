@@ -20,7 +20,7 @@ import IMC from './componentes/Testes/Tabelas/IMC';
 import PressaoArterial from './componentes/Testes/Tabelas/PressaoArterial';
 import FrequenciaCardiacaDeRepouso from './componentes/Testes/Tabelas/FrequenciaCardiacaDeRepouso';
 import Testes3 from './componentes/Testes/TestesParte3.js';
-import Routes from './componentes/Routes/estilo';
+import Routes from './componentes/Routes/route';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import PerfilCoordenador from './componentes/PerfilCoordenador';
@@ -32,6 +32,7 @@ import SelecaoAlunoAnaliseProgramaDeTreino from './componentes/AnaliseDoPrograma
 import TelaAnaliseDoProgramaDeTreino from './componentes/TelaAnaliseDoProgramaDeTreino';
 import TelasDeEvolucao from './componentes/TelasDeEvolucao';
 import SelecaoDaEvolucao from './componentes/TelasDeEvolucao/GraficosEvolutivos/SelecaoDaEvolucao';
+import SolicitacoesCadastro from './componentes/SolicitacoesCadastro';
 import EvolucaoCorporal from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoCorporal';
 import EvolucaoDoExercicioSelecao from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoDoExercicioSelecao';
 import EvolucaoDoExercicio from './componentes/TelasDeEvolucao/GraficosEvolutivos/EvolucaoDoExercicio';
@@ -67,6 +68,9 @@ import TransferirTurma from './componentes/ListaProfessores/PerfilProfessor/Tran
 import ListaTurmas from './componentes/Turmas/ListaTurmas.js';
 import DeleteProfessor from './componentes/ListaProfessores/PerfilProfessor/DeleteProfessor.js';
 import FuncoesProfessor from './componentes/FuncoesProfessor';
+import AceitarProfessor from './componentes/SolicitacoesCadastro/PerfilProfessor/AceitarProfessor';
+import PerfilProfessorSolicitacao from './componentes/SolicitacoesCadastro/PerfilProfessor/index';
+
 const Stack = createNativeStackNavigator();
 window.navigator.userAgent = 'ReactNative'
 Notification.setNotificationHandler({
@@ -85,6 +89,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Principal" component={Routes} options={{ headerShown: false }} />
+        <Stack.Screen name="Aceitar Professor" component={AceitarProfessor} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro Coordenador" component={CadastroScreen}/>
         <Stack.Screen name="Perfil Aluno" component={PerfilDoAluno}/>
         <Stack.Screen name="Turmas" component={Turmas}/>
@@ -103,6 +108,7 @@ export default function App() {
         <Stack.Screen name="Editar foto" component={EditarFoto}/>
         <Stack.Screen name="Lista Professores" component={ListaProfessores}/>
         <Stack.Screen name="Perfil Professor" component={PerfilProfessor}/>
+        <Stack.Screen name="Perfil ProfessorSolicitacao" component={PerfilProfessorSolicitacao}/>
         <Stack.Screen name="Alunos" component={SelecaoAluno}/>
         <Stack.Screen name="Lista Alunos" component={ListaAlunos}/>
         <Stack.Screen name="Avaliações" component={Avaliacoes}/>
@@ -113,6 +119,7 @@ export default function App() {
         <Stack.Screen name="Seleção da evolução" component={SelecaoDaEvolucao}/>
         <Stack.Screen name="Evolução dados antropométricos" component={EvolucaoCorporal}/>
         <Stack.Screen name="Seleção do exercício" component={EvolucaoDoExercicioSelecao}/>
+        <Stack.Screen name="Solicitação de Cadastro" component={SolicitacoesCadastro}/>
         <Stack.Screen name="Evolução do exercício" component={EvolucaoDoExercicio}/>
         <Stack.Screen name="Evolução dos testes" component={EvolucaoDosTestes}/>
         <Stack.Screen name="Evolução PSE" component={EvolucaoPse}/>

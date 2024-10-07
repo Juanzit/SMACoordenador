@@ -33,7 +33,7 @@ export default ({ route, navigation }) => {
 
             <View style={style.areaBotoes}>
                   <View style={style.containerBotao}>
-                    <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Seleção Aluno Montar Treino', { alunos: alunos })}>
+                    <TouchableOpacity style={[estilo.corPrimaria, style.botao]} onPress={() => navigation.navigate('Analise do Programa de Treino', { alunos: alunos })}>
                       <View style={style.iconeBotao}>
                       <Foundation name="clipboard-pencil" size={120} color="white" />
                       </View>
